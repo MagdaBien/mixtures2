@@ -1,20 +1,22 @@
 <template>
   <div class="flask" :style="flaskStyle">
     <!-- decrement btn -->
+    <!-- prettier-ignore -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
-      icon="arrow-down"
+      icon="fa-arrow-down"
       @click="$emit('decrement')"
     />
 
     <div :class="fillClasses" :style="fillStyle" />
 
     <!-- increment btn -->
+    <!-- prettier-ignore -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--right"
-      icon="arrow-up"
+      icon="fa-arrow-up"
       :movement="-0.5"
       @click="$emit('increment')"
     />
@@ -42,7 +44,10 @@ export default {
       type: String
     },
     variant: {
-      type: String
+      type: String,
+      validator: (value) => {
+        return ['red', 'green', 'blue'].includes(value)
+      }
     },
     buttonsVisible: {
       type: Boolean,
