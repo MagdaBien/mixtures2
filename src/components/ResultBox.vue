@@ -18,26 +18,26 @@
       :size="4"
       :movement="-0.5"
       :font-size="1.5"
-      icon="fa-sync"
+      icon="pi-refresh"
     />
 
     <!-- modal show -->
     <button-item
-      @click="show"
+      @click="showModal"
       :size="4"
       :movement="-0.5"
       :font-size="1.5"
-      icon="fa-question"
+      icon="pi-question"
     />
 
     <!-- modal window -->
-    <modal-item v-if="this.modalVisible" @cancel="hide">
+    <modal-item v-if="this.modalVisible" @cancel="hideModal">
       <template v-slot:header> About the app </template>
       <template v-slot:body>
         Mix three colors to create the perfect one!
       </template>
       <template v-slot:footer>
-        <button-item icon="fa-thumbs-up" @click="hide" />
+        <button-item icon="pi-thumbs-up" @click="hideModal" />
       </template>
     </modal-item>
   </div>
@@ -47,24 +47,15 @@
 import ButtonItem from './shared/ButtonItem'
 import FlaskItem from './shared/FlaskItem'
 import ModalItem from './shared/ModalItem'
+import modalMixin from '../mixins/ModalMixin'
 
 export default {
   name: 'ResultsBox',
-  data: () => ({
-    modalVisible: false
-  }),
+  mixins: [modalMixin],
   components: {
     ButtonItem,
     FlaskItem,
     ModalItem
-  },
-  methods: {
-    show() {
-      this.modalVisible = true
-    },
-    hide() {
-      this.modalVisible = false
-    }
   },
   props: {
     mixtures: {

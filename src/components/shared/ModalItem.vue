@@ -1,7 +1,7 @@
 <template>
   <div class="fog">
     <div class="modal">
-      <button-item icon="fa-times" @click="$emit('cancel')" class="close" />
+      <button-item icon="pi-times" @click="$emit('cancel')" class="close" />
       <header>
         <h1>
           <slot name="header" />

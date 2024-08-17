@@ -29,7 +29,7 @@ export default {
     },
     iconSet: {
       type: String,
-      default: 'fas'
+      default: 'pi'
     },
     text: {
       type: String
@@ -49,6 +49,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pi {
+  font-weight: bold;
+}
 .btn {
   background-color: #9a9a9a;
   background-image: linear-gradient(0deg, #9a9a9a 0%, #e8fdff 100%);
