@@ -30,6 +30,15 @@
       icon="pi-question"
     />
 
+    <!-- share btn -->
+    <button-item
+      @click="$emit('share')"
+      :size="4"
+      :movement="-0.5"
+      :font-size="1.5"
+      icon="pi-share-alt"
+    />
+
     <!-- modal window -->
     <modal-item v-if="this.modalVisible" @cancel="hideModal">
       <template v-slot:header> About the app </template>

@@ -1,18 +1,12 @@
 <template>
   <header>
     <h1 class="heading" v-text="'RGB Color Mixture'" />
-    <app-menu />
   </header>
 </template>
 
 <script>
-import AppMenu from './AppMenu'
-
 export default {
-  name: 'AppHeader',
-  components: {
-    AppMenu
-  }
+  name: 'AppHeader'
 }
 </script>
 
