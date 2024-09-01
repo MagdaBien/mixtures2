@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 .page-title {
-  color: #637892;
+  color: $color-title;
   margin: 2rem;
   font-size: 2rem;
 }
