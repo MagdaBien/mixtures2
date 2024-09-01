@@ -8,7 +8,11 @@
       <app-menu />
 
       <!-- router view -->
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <slide-fade-animation class="animate__faster">
+          <component :is="Component" />
+        </slide-fade-animation>
+      </router-view>
     </div>
   </div>
 </template>
@@ -17,12 +21,14 @@
 import './styles/global.scss'
 import AppHeader from './components/AppHeader'
 import AppMenu from './components/AppMenu'
+import SlideFadeAnimation from './components/shared/SlideFadeAnimation'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppMenu
+    AppMenu,
+    SlideFadeAnimation
   }
 }
 </script>

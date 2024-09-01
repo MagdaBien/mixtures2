@@ -12,43 +12,41 @@
       :amount="100"
     />
 
-    <!-- refresh btn -->
-    <button-item
-      @click="$emit('refresh')"
-      :size="4"
-      :movement="-0.5"
-      :font-size="1.5"
-      icon="pi-refresh"
-    />
+    <!-- color result -->
+    <p>
+      Color result: RGB({{ mixtureComponents.redCol }},
+      {{ mixtureComponents.greenCol }}, {{ mixtureComponents.blueCol }})
+    </p>
 
-    <!-- modal show -->
-    <button-item
-      @click="showModal"
-      :size="4"
-      :movement="-0.5"
-      :font-size="1.5"
-      icon="pi-question"
-    />
-
-    <!-- share btn -->
-    <button-item
-      @click="$emit('share')"
-      :size="4"
-      :movement="-0.5"
-      :font-size="1.5"
-      icon="pi-share-alt"
-    />
+    <!-- 3xbtn -->
+    <div>
+      <router-link
+        v-for="item in items"
+        :key="item.label"
+        :to="item.label === 'Share' ? pathToShare : item.to"
+      >
+        <button-item
+          @click="item.action"
+          :icon="item.icon"
+          :size="4"
+          :movement="-0.5"
+          :font-size="1.5"
+        />
+      </router-link>
+    </div>
 
     <!-- modal window -->
-    <modal-item v-if="this.modalVisible" @cancel="hideModal">
-      <template v-slot:header> About the app </template>
-      <template v-slot:body>
-        Mix three colors to create the perfect one!
-      </template>
-      <template v-slot:footer>
-        <button-item icon="pi-thumbs-up" @click="hideModal" />
-      </template>
-    </modal-item>
+    <fade-animation>
+      <modal-item v-if="modalVisible" @cancel="hideModal">
+        <template v-slot:header> About the app </template>
+        <template v-slot:body>
+          Mix three colors to create the perfect one!
+        </template>
+        <template v-slot:footer>
+          <button-item icon="pi-thumbs-up" @click="hideModal" />
+        </template>
+      </modal-item>
+    </fade-animation>
   </div>
 </template>
 
@@ -56,7 +54,9 @@
 import ButtonItem from './shared/ButtonItem'
 import FlaskItem from './shared/FlaskItem'
 import ModalItem from './shared/ModalItem'
+import FadeAnimation from './shared/FadeAnimation'
 import modalMixin from '../mixins/ModalMixin'
+const rgbToHex = require('../utils/rgbToHex')
 
 export default {
   name: 'ResultsBox',
@@ -64,7 +64,8 @@ export default {
   components: {
     ButtonItem,
     FlaskItem,
-    ModalItem
+    ModalItem,
+    FadeAnimation
   },
   props: {
     mixtures: {
@@ -72,27 +73,63 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      items: [
+        {
+          label: 'Refresh',
+          icon: 'pi-refresh',
+          to: '',
+          action: () => this.refresh()
+        },
+        {
+          label: 'Modal',
+          icon: 'pi-question',
+          to: '',
+          action: () => this.showModal()
+        },
+        {
+          label: 'Share',
+          icon: 'pi-share-alt',
+          to: this.pathToShare,
+          action: ''
+        }
+      ]
+    }
+  },
   computed: {
-    mixtureEffectFill() {
+    mixtureComponents() {
       const [redCol, greenCol, blueCol] = this.mixtures.map((item) =>
         Math.floor(item.amount * 2.5)
       )
-      return rgbToHex(redCol, greenCol, blueCol)
+      return { redCol, greenCol, blueCol }
+    },
+    mixtureEffectFill() {
+      const color = rgbToHex(
+        this.mixtureComponents.redCol,
+        this.mixtureComponents.greenCol,
+        this.mixtureComponents.blueCol
+      )
+      return color
+    },
+    pathToShare() {
+      return `/color/${this.mixtureComponents.redCol}/${this.mixtureComponents.greenCol}/${this.mixtureComponents.blueCol}`
     },
     flaskStyles() {
       return {
         margin: `3rem auto`
       }
     }
+  },
+  methods: {
+    refresh() {
+      this.$emit('refresh')
+    },
+    hideModal() {
+      this.modalVisible = false
+    }
   }
-}
-
-function rgbToHex(r, g, b) {
-  const toHex = (component) => {
-    const hex = component.toString(16)
-    return hex.length === 1 ? '0' + hex : hex
-  }
-
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`
 }
 </script>
+
+<style lang="scss"></style>

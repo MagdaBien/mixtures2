@@ -1,6 +1,7 @@
 <template>
   <div class="page">
-    <page-title>Home</page-title>
+    <page-title>Error</page-title>
+    <p>404 not found :(</p>
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import PageTitle from '../components/shared/PageTitle'
 
 export default {
-  name: 'HomePage',
+  name: 'ErrorPage',
   components: {
     PageTitle
   }

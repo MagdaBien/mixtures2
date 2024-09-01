@@ -1,11 +1,16 @@
 <template>
   <div class="page">
-    <h1>About</h1>
+    <page-title>About</page-title>
   </div>
 </template>
 
 <script>
+import PageTitle from '../components/shared/PageTitle'
+
 export default {
-  name: 'AboutPage'
+  name: 'AboutPage',
+  components: {
+    PageTitle
+  }
 }
 </script>

@@ -1,12 +1,17 @@
 <template>
-  <div class="flask" :style="flaskStyle">
+  <div
+    class="flask"
+    :style="flaskStyle"
+    :class="shakeClass"
+    @animationend="shaking = false"
+  >
     <!-- decrement btn -->
     <!-- prettier-ignore -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
       icon="pi-arrow-down"
-      @click="$emit('decrement')"
+      @click="doDecrement"
     />
 
     <div :class="fillClasses" :style="fillStyle" />
@@ -18,7 +23,7 @@
       class="flask__btn flask__btn--right"
       icon="pi-arrow-up"
       :movement="-0.5"
-      @click="$emit('increment')"
+      @click="doIncrement"
     />
   </div>
 </template>
@@ -30,6 +35,11 @@ export default {
   name: 'FlaskItem',
   components: {
     ButtonItem
+  },
+  data() {
+    return {
+      shaking: false
+    }
   },
   props: {
     size: {
@@ -74,6 +84,22 @@ export default {
       }
 
       return style
+    },
+    shakeClass() {
+      return this.shaking ? 'animate__animated animate__shakeY' : ''
+    }
+  },
+  methods: {
+    addZoomIn() {
+      this.shaking = true
+    },
+    doIncrement() {
+      this.$emit('increment')
+      this.addZoomIn()
+    },
+    doDecrement() {
+      this.$emit('decrement')
+      this.addZoomIn()
     }
   }
 }
