@@ -4,6 +4,7 @@ import About from '@/pages/AboutPage.vue'
 import Mixin from '@/pages/MixinPage.vue'
 import Share from '@/pages/SharePage.vue'
 import Error from '@/pages/ErrorPage.vue'
+import MyColorsPage from '@/pages/MyColorsPage.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/color',
     name: 'Color',
     component: Home
+  },
+  {
+    path: '/my-colors',
+    name: 'MyColorsPage',
+    component: MyColorsPage
   },
   {
     path: '/:pathMatch(.*)*',

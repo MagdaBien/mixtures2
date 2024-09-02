@@ -14,6 +14,15 @@
       @click="doDecrement"
     />
 
+    <!-- delete btn -->
+    <!-- prettier-ignore -->
+    <button-item
+      v-if="buttonsDeleteVisible"
+      class="flask__btn flask__btn--center"
+      icon="pi-trash"
+      @click="doRemove"
+    />
+
     <div :class="fillClasses" :style="fillStyle" />
 
     <!-- increment btn -->
@@ -62,6 +71,10 @@ export default {
     buttonsVisible: {
       type: Boolean,
       default: true
+    },
+    buttonsDeleteVisible: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -99,6 +112,10 @@ export default {
     },
     doDecrement() {
       this.$emit('decrement')
+      this.addZoomIn()
+    },
+    doRemove() {
+      this.$emit('remove')
       this.addZoomIn()
     }
   }
@@ -161,6 +178,11 @@ export default {
 
     &--left {
       left: 1rem;
+    }
+
+    &--center {
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

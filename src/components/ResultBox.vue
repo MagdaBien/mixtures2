@@ -18,7 +18,13 @@
       {{ mixtureComponents.greenCol }}, {{ mixtureComponents.blueCol }})
     </p>
 
-    <!-- 3xbtn -->
+    <!-- my colors -->
+    <p>
+      There are {{ colorsAmount }} colors in your pocket!
+
+      <!-- 3xbtn -->
+    </p>
+
     <div>
       <router-link
         v-for="item in items"
@@ -57,6 +63,7 @@ import ModalItem from './shared/ModalItem'
 import FadeAnimation from './shared/FadeAnimation'
 import modalMixin from '../mixins/ModalMixin'
 const rgbToHex = require('../utils/rgbToHex')
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ResultsBox',
@@ -93,11 +100,21 @@ export default {
           icon: 'pi-share-alt',
           to: this.pathToShare,
           action: ''
+        },
+        {
+          label: 'MyColor',
+          icon: 'pi-heart-fill',
+          to: '',
+          action: () => this.addMyColor()
         }
       ]
     }
   },
   computed: {
+    ...mapGetters({
+      colorsAmount: 'colorsCount',
+      mixtures: 'mixtures'
+    }),
     mixtureComponents() {
       const [redCol, greenCol, blueCol] = this.mixtures.map((item) =>
         Math.floor(item.amount * 2.5)
@@ -122,11 +139,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addColor']),
     refresh() {
       this.$emit('refresh')
     },
     hideModal() {
       this.modalVisible = false
+    },
+    addMyColor() {
+      this.addColor(this.mixtures)
     }
   }
 }

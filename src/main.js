@@ -3,6 +3,7 @@ import 'primeflex/primeflex.min.css'
 import Aura from '@primevue/themes/aura'
 import router from './router'
 import 'animate.css/animate.min.css'
+import store from './store'
 
 import App from './App.vue'
 import { createApp } from 'vue'
@@ -15,4 +16,5 @@ app.use(PrimeVue, {
   }
 })
 app.use(router)
+app.use(store)
 app.mount('#app')

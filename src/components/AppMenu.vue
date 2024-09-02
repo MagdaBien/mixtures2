@@ -39,6 +39,11 @@ export default {
           label: 'About',
           icon: 'pi pi-fw pi-info-circle',
           to: '/about'
+        },
+        {
+          label: 'My colors',
+          icon: 'pi pi-palette',
+          to: '/my-colors'
         }
       ]
     }
